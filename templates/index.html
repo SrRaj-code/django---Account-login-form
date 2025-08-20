@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USER FORM - PRISHAL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e0e7e7;
+        }
+        .card {
+            border: none;
+        }
+        .card-header, .card-footer {
+            background-color: #bec9c9;
+            border: none;
+        }
+        .form-control, .form-select {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        .btn-custom {
+            background-color: #38a2a2;
+            border-color: #38a2a2;
+            color: white;
+            padding: 0.5rem 1.5rem;
+        }
+        .form-label{
+            color: #45b52d;
+            font-weight: bold;
+        }
+        .btn-custom:hover {
+            background-color: #2f8989;
+            border-color: #2f8989;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center py-3">
+                        <h2 class="mb-0">Create Account</h2>
+                    </div>
+                    <div class="card-body p-4 p-md-5">
+                        
+                        {% if messages %}
+                            <div class="alert alert-success" role="alert">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <form id="accountForm" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First name *</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="enter your first name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last name</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="enter your last name">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="enter your email" required>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label">Password *</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="enter your password" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="passwordAgain" class="form-label">Confirm Password *</label>
+                                    <input type="password" class="form-control" id="passwordAgain" placeholder="enter your password again" required>
+                                    <div class="invalid-feedback">
+                                        Passwords do not match.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Gender:</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Hobbies</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="music" name="hobbies" value="music">
+                                        <label class="form-check-label" for="music">Music</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="sports" name="hobbies" value="sports">
+                                        <label class="form-check-label" for="sports">Sports</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="travel" name="hobbies" value="travel">
+                                        <label class="form-check-label" for="travel">Travel</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="movies" name="hobbies" value="movies">
+                                        <label class="form-check-label" for="movies">Movies</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="incomeSource" class="form-label">Source of Income</label>
+                                    <select class="form-select" id="incomeSource" name="source">
+                                        <option selected>Employed</option>
+                                        <option>Student</option>
+                                        <option>Freelancer</option>
+                                        <option>Business</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="incomeRange" class="form-label">Income: <span id="rangeValue" class="fw-bold">20K</span></label>
+                                    <input type="range" class="form-range" min="0" max="100000" value="20000" step="1000" id="incomeRange" name="income">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="profilePic" class="form-label">Upload Profile Picture</label>
+                                    <input type="file" class="form-control" id="profilePic" name="profile">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="number" class="form-control" id="age" value="18" name="age">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="bio" class="form-label">Bio</label>
+                                <textarea class="form-control" id="bio" rows="3" placeholder="Tell us a little about yourself..." name="bio"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" form="accountForm" class="btn btn-custom">Create</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const incomeRange = document.getElementById('incomeRange');
+        const rangeValue = document.getElementById('rangeValue');
+        const accountForm = document.getElementById('accountForm');
+        const password = document.getElementById('password');
+        const passwordAgain = document.getElementById('passwordAgain');
+
+        incomeRange.addEventListener('input', function() {
+            const value = this.value;
+            if (value >= 1000) {
+                rangeValue.textContent = (value / 1000) + 'K';
+            } else {
+                rangeValue.textContent = value;
+            }
+        });
+
+        accountForm.addEventListener('submit', function(event) {
+            if (password.value !== passwordAgain.value) {
+                event.preventDefault();
+                passwordAgain.classList.add('is-invalid');
+            } else {
+                passwordAgain.classList.remove('is-invalid');
+            }
+        });
+    </script>
+</body>
+</html>
